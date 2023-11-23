@@ -12,7 +12,7 @@ const Navbar = (props) => {
           }}
         >
           <Text
-            style={{ color: "green", fontWeight: 800, textAlign: "center" }}
+            style={{ color: "#96d495", fontWeight: 800, textAlign: "center",fontSize: 18 }}
           >
             Home
           </Text>
@@ -24,7 +24,19 @@ const Navbar = (props) => {
           }}
         >
           <Text
-            style={{ color: "green", fontWeight: 800, textAlign: "center" }}
+            style={{ color: "#96d495", fontWeight: 800, textAlign: "center",fontSize: 18 }}
+          >
+            Birthdays
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navButton}
+          onPressOut={() => {
+            props.setPage("create");
+          }}
+        >
+          <Text
+            style={{ color: "#96d495", fontWeight: 800, textAlign: "center",fontSize: 18 }}
           >
             Create
           </Text>

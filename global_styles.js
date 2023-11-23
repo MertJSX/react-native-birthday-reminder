@@ -1,71 +1,77 @@
 import { StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#252525",
-      //alignItems: 'center',
-      //justifyContent: 'center'
-    },
-    container2: {
-      flex: 1,
-      backgroundColor: "#252525",
-      alignItems: "center",
-      marginTop: 30,
-      //justifyContent: 'center'
-    },
-    titleText: {
-      color: "#8fce00",
-      fontSize: 24,
-      marginTop: 30,
-      marginLeft: 20,
-      textAlign: "center",
-      fontWeight: '900',
-      marginBottom: 20
-    },
-    input: {
-      fontSize: 15,
-      borderColor: "#82dfab",
-      borderStyle: "solid",
-      borderWidth: 2,
-      padding: 2,
-      borderRadius: 8,
-      width: "70%",
-      textAlign: "center",
-      backgroundColor: "#181d23",
-      color: "#82dfab",
-      marginBottom: 10
-    },
-    button: {
-      fontSize: 15,
-      borderColor: "#82dfab",
-      borderStyle: "solid",
-      borderWidth: 2,
-      padding: 2,
-      borderRadius: 8,
-      width: "70%",
-      textAlign: "center",
-      backgroundColor: "#a7eca6",
-      color: "#82dfab",
-    },
-    navButton: {
-        fontSize: 15,
-        borderColor: "#82dfab",
-        borderStyle: "solid",
-        borderWidth: 2,
-        padding: 2,
-        //borderRadius: 15,
-        //width: 100,
-        backgroundColor: "#a7eca6",
-        color: "#82dfab",
-        flexGrow: 1
+  container: {
+    flex: 1,
+    backgroundColor: "#212f21",
+    //alignItems: 'center',
+    //justifyContent: 'center'
+  },
+  container2: {
+    flex: 1,
+    alignItems: "center",
+    marginTop: 30,
+    //justifyContent: 'center'
+  },
+  titleText: {
+    color: "#74a574",
+    fontSize: 34,
+    marginTop: 30,
+    marginLeft: 20,
+    textAlign: "center",
+    fontWeight: "900",
+    marginBottom: 20,
+  },
+  input: {
+    fontSize: 18,
+    //borderColor: "#82dfab",
+    //borderStyle: "solid",
+    //borderWidth: 2,
+    padding: 3,
+    borderRadius: 18,
+    width: "70%",
+    textAlign: "center",
+    backgroundColor: "#a7eca6",
+    color: "#69920c",
+    fontWeight: '800',
+    marginBottom: 10,
+  },
+  button: {
+    //borderColor: "#82dfab",
+    //borderStyle: "solid",
+    //borderWidth: 2,
+    padding: 3,
+    borderRadius: 18,
+    width: "70%",
+    textAlign: "center",
+    backgroundColor: "#425e42",
+    boxShadow: {
+      shadowOffset: { width: 6, height: 6 },
+      shadowColor: "black",
+      shadowOpacity: 0.6,
+      shadowRadius: 4,
+      androidShadow: {
+        elevation: 10,
       },
-    navView: {
-        display: "flex",
-        flexDirection: "row",
-        flexWrap: "wrap",
-        width: "100%"
-    }
-  });
+    },
+  },
+  navButton: {
+    fontSize: 15,
+    borderColor: "#96d495",
+    borderStyle: "solid",
+    borderWidth: 2,
+    padding: 2,
+    //borderRadius: 15,
+    //width: 100,
+    backgroundColor: "#537653",
+    flexGrow: 1,
+  },
+  navView: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    width: "100%",
+  },
+});
 
-  export default styles;
+export default styles;

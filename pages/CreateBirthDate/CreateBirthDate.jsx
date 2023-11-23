@@ -38,30 +38,31 @@ const CreateBirthDate = () => {
         value={name}
         onChangeText={setName}
         placeholder="Name"
-        placeholderTextColor="gray"
+        placeholderTextColor="#85bc84"
       ></TextInput>
       <TextInput
         style={styles.input}
-        value={month}
+        value={month == 0 ? '' : month.toString()}
         onChangeText={setMonth}
         keyboardType="number-pad"
         placeholder="Month"
-        placeholderTextColor="gray"
+        placeholderTextColor="#85bc84"
       ></TextInput>
       <TextInput
         style={styles.input}
-        value={day}
+        value={day == 0 ? '' : day.toString()}
         onChangeText={setDay}
         keyboardType="number-pad"
         placeholder="Day"
-        placeholderTextColor="gray"
+        placeholderTextColor="#85bc84"
       ></TextInput>
       <TouchableOpacity style={styles.button}>
         <Text
           style={{
-            color: "green",
+            color: "#85BC84",
             fontWeight: 800,
             textAlign: "center",
+            fontSize: 18
           }}
         >
           Add
