@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Text, View, TouchableOpacity } from "react-native";
 import styles from "./global_styles";
 import CreateBirthDate from "./pages/CreateBirthDate/CreateBirthDate";
+import ShowAll from "./pages/ShowAll/ShowAll";
 import Navbar from "./components/navbar/Navbar";
 
 export default function App() {
@@ -14,6 +15,8 @@ export default function App() {
       <Navbar setPage={setPage} />
       {page == "create" ? (
         <CreateBirthDate />
+      ) : page == "showall" ? (
+        <ShowAll />
       ) : (
         <Text style={{ color: "green" }}> Ha ha</Text>
       )}

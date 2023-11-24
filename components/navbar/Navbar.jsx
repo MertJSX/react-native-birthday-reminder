@@ -20,7 +20,7 @@ const Navbar = (props) => {
         <TouchableOpacity
           style={styles.navButton}
           onPressOut={() => {
-            props.setPage("create");
+            props.setPage("showall");
           }}
         >
           <Text

@@ -11,7 +11,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginTop: 30,
-    //justifyContent: 'center'
+    //justifyContent: 'center',
+    //alignItems: "center",
+    //backgroundColor: "#324631",
+    //width: 300
   },
   titleText: {
     color: "#74a574",
@@ -33,7 +36,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     backgroundColor: "#a7eca6",
     color: "#69920c",
-    fontWeight: '800',
+    fontWeight: "800",
     marginBottom: 10,
   },
   button: {
@@ -45,15 +48,17 @@ const styles = StyleSheet.create({
     width: "70%",
     textAlign: "center",
     backgroundColor: "#425e42",
-    boxShadow: {
-      shadowOffset: { width: 6, height: 6 },
-      shadowColor: "black",
-      shadowOpacity: 0.6,
-      shadowRadius: 4,
-      androidShadow: {
-        elevation: 10,
-      },
-    },
+  },
+  button2: {
+    //borderColor: "#82dfab",
+    //borderStyle: "solid",
+    //borderWidth: 2,
+    padding: 3,
+    borderRadius: 18,
+    width: "100%",
+    textAlign: "center",
+    backgroundColor: "#425e42",
+    marginBottom: 20,
   },
   navButton: {
     fontSize: 15,
@@ -71,6 +76,34 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flexWrap: "wrap",
     width: "100%",
+  },
+  showAllFlex: {
+    //display: "flex",
+    //flexDirection: "row",
+    //flexWrap: "wrap",
+    width: "100%",
+    justifyContent: "center",
+    marginTop: 10,
+    showAllFlexbox: {
+      display: "flex",
+      flexDirection: "column",
+      flexWrap: "wrap",
+      width: "90%",
+      margin: 10,
+      padding: 10,
+      borderRadius: 15,
+      backgroundColor: "#324631",
+      textStyle: {
+        color: "#85BC84",
+        fontWeight: "500",
+        fontSize: 20
+      },
+      textStyle2: {
+        color: "#a7eca6",
+        fontWeight: "800",
+        fontSize: 20
+      }
+    },
   },
 });
 
