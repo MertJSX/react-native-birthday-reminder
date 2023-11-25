@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, TouchableHighlight } from "react-native";
 import styles from "../../global_styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -51,9 +51,10 @@ const ShowAll = () => {
   }
   return (
     <View style={styles.showAllFlex}>
-      <TouchableOpacity 
+      <TouchableHighlight 
       style={styles.button2}
-      onPressIn={saveBirthDate}>
+      delayPressOut={1000}
+      onPressOut={saveBirthDate}>
         <Text
           style={{
             color: "#85BC84",
@@ -62,7 +63,7 @@ const ShowAll = () => {
             fontSize: 18,
           }}
         >Save Data</Text>
-      </TouchableOpacity>
+      </TouchableHighlight>
       <ScrollView>
       {data
         ? data.map((e, key) => (
@@ -84,7 +85,7 @@ const ShowAll = () => {
                   {monthNames[e.month - 1]}
                 </Text>
               </Text>
-              <TouchableOpacity
+              <TouchableHighlight
                 style={styles.button2}
                 onPressOut={() => {
                   setData(data.filter((item) => item.name !== e.name));
@@ -100,7 +101,7 @@ const ShowAll = () => {
                 >
                   Delete
                 </Text>
-              </TouchableOpacity>
+              </TouchableHighlight>
             </View>
           ))
         : null}
