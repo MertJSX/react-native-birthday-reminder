@@ -5,9 +5,123 @@ import styles from "./global_styles";
 import CreateBirthDate from "./pages/CreateBirthDate/CreateBirthDate";
 import ShowAll from "./pages/ShowAll/ShowAll";
 import Navbar from "./components/navbar/Navbar";
+import * as BackgroundFetch from "expo-background-fetch";
+import * as TaskManager from "expo-task-manager";
+import React from "react";
+import * as Notifications from "expo-notifications";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const BIRTHDAY_REMINDER_BIRTHDAY_CONTROL = "background-fetch";
+
+async function getBirthdayDates() {
+  try {
+    const value = await AsyncStorage.getItem("birthDayDates");
+    if (value !== null) {
+      const parsedValue = JSON.parse(value);
+      return parsedValue
+    }
+  } catch (error) {
+    console.error("Error getting data:", error);
+  }
+}
+
+TaskManager.defineTask(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, async () => {
+  const today = new Date();
+
+  console.log(
+    `Got background fetch call at date: ${new Date(now).toISOString()}`
+  );
+  let birthdayDates = await getBirthDates();
+  let birthdaysInThisMonth = [];
+  let birthdaysInNextMonth = [];
+  birthdayDates.forEach(birthdayDate => {
+    let hasBirthday = 0;
+    if (Number(birthdayDate.month) - 1 == today.getMonth()) {
+      hasBirthday = 1
+    }
+    if (Number(birthdayDate.month) == today.getMonth()) {
+      hasBirthday = 2
+    }
+    if (hasBirthday == 1) {
+      birthdaysInNextMonth.push(birthdayDate)
+    } else if (hasBirthday == 2) {
+      birthdaysInThisMonth.push(birthdayDate)
+    }
+  });
+  if (birthdaysInThisMonth.length !== 0) {
+    let birthdayGuys = [];
+    birthdaysInThisMonth.forEach(e => {
+      birthdayGuys.push(e.name);
+    });
+  }
+  if (birthdaysInNextMonth.length !== 0) {
+    let birthdayGuys = [];
+    birthdaysInThisMonth.forEach(e => {
+      birthdayGuys.push(e.name);
+    });
+  }
+  console.log(x);
+  Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Birthday reminder",
+      body: "Someone has birthday",
+    },
+    trigger: {
+      seconds: 1,
+    },
+  });
+
+  return BackgroundFetch.BackgroundFetchResult.NewData;
+});
+
+async function registerBackgroundFetchAsync() {
+  return BackgroundFetch.registerTaskAsync(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, {
+    minimumInterval: 5,
+    stopOnTerminate: false,
+    startOnBoot: true,
+  });
+}
+
+async function unregisterBackgroundFetchAsync() {
+  return BackgroundFetch.unregisterTaskAsync(
+    BIRTHDAY_REMINDER_BIRTHDAY_CONTROL
+  );
+}
 
 export default function App() {
   const [page, setPage] = useState("home");
+  const [isRegistered, setIsRegistered] = React.useState(false);
+  const [status, setStatus] = React.useState(null);
+
+  React.useEffect(() => {
+    checkStatusAsync();
+  }, []);
+  React.useEffect(() => {
+    console.log(status);
+  });
+
+  
+
+  const checkStatusAsync = async () => {
+    const status = await BackgroundFetch.getStatusAsync();
+    const isRegistered = await TaskManager.isTaskRegisteredAsync(
+      BIRTHDAY_REMINDER_BIRTHDAY_CONTROL
+    );
+    setStatus(status);
+    setIsRegistered(isRegistered);
+  };
+
+  const toggleFetchTask = async () => {
+    if (!isRegistered) {
+      console.log("Task has started");
+      await registerBackgroundFetchAsync();
+    } else {
+      console.log("Task has stopped");
+      await unregisterBackgroundFetchAsync();
+    }
+
+    checkStatusAsync();
+  };
 
   return (
     <View style={styles.container}>
@@ -17,8 +131,24 @@ export default function App() {
         <CreateBirthDate />
       ) : page == "showall" ? (
         <ShowAll />
+      ) : isRegistered ? (
+        <TouchableOpacity style={styles.button2} onPress={toggleFetchTask}>
+          <Text style={{
+            color: "#85BC84",
+            fontWeight: 800,
+            textAlign: "center",
+            fontSize: 18,
+          }}> Don't remind me</Text>
+        </TouchableOpacity>
       ) : (
-        <Text style={{ color: "green" }}> Ha ha</Text>
+        <TouchableOpacity style={styles.button2} onPress={toggleFetchTask}>
+          <Text style={{
+            color: "#85BC84",
+            fontWeight: 800,
+            textAlign: "center",
+            fontSize: 18,
+          }}> Remind me</Text>
+        </TouchableOpacity>
       )}
 
       <StatusBar style="auto" />

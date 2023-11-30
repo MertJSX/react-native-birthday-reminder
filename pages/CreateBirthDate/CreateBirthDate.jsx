@@ -2,7 +2,7 @@ import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "../../global_styles";
-import * as Notifications from 'expo-notifications';
+import * as Notifications from "expo-notifications";
 
 const CreateBirthDate = () => {
   const [name, setName] = useState("");
@@ -12,14 +12,14 @@ const CreateBirthDate = () => {
   const [err, setErr] = useState("");
 
   useEffect(() => {
-    setErr("")
+    setErr("");
     console.log(data);
-  }, [data])
+  }, [data]);
   useEffect(() => {
     retrieveData();
   }, []);
 
-   async function saveBirthDate() {
+  async function saveBirthDate() {
     try {
       const foundObject = data.find((item) => item.name === name);
       if (foundObject) {
@@ -37,11 +37,11 @@ const CreateBirthDate = () => {
       await AsyncStorage.setItem("birthDayDates", jsonValue);
       Notifications.scheduleNotificationAsync({
         content: {
-          title: 'Birthday reminder',
+          title: "Birthday reminder",
           body: "New birthday created!",
         },
         trigger: {
-          seconds: 10
+          seconds: 10,
         },
       });
       console.log("Data saved successfully!");
@@ -59,7 +59,7 @@ const CreateBirthDate = () => {
         console.log(data);
       }
     } catch (error) {
-      console.error("Veri alma hatası:", error);
+      console.error("Error getting data:", error);
     }
   }
 

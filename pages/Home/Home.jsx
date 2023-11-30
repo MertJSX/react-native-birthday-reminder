@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import styles from "../../global_styles";
 
 const Home = () => {
   return (

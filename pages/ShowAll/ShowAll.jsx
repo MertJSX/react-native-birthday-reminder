@@ -46,7 +46,7 @@ const ShowAll = () => {
         console.log(data);
       }
     } catch (error) {
-      console.error("Veri alma hatası:", error);
+      console.error("Error getting data:", error);
     }
   }
   return (
@@ -85,9 +85,9 @@ const ShowAll = () => {
                   {monthNames[e.month - 1]}
                 </Text>
               </Text>
-              <TouchableHighlight
+              <TouchableOpacity
                 style={styles.button2}
-                onPressOut={() => {
+                onPress={() => {
                   setData(data.filter((item) => item.name !== e.name));
                 }}
               >
@@ -101,7 +101,7 @@ const ShowAll = () => {
                 >
                   Delete
                 </Text>
-              </TouchableHighlight>
+              </TouchableOpacity>
             </View>
           ))
         : null}
