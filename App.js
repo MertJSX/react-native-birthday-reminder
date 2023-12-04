@@ -18,7 +18,7 @@ async function getBirthdayDates() {
     const value = await AsyncStorage.getItem("birthDayDates");
     if (value !== null) {
       const parsedValue = JSON.parse(value);
-      return parsedValue
+      return parsedValue;
     }
   } catch (error) {
     console.error("Error getting data:", error);
@@ -26,51 +26,58 @@ async function getBirthdayDates() {
 }
 
 TaskManager.defineTask(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, async () => {
-  const today = new Date();
-
-  console.log(
-    `Got background fetch call at date: ${new Date(now).toISOString()}`
-  );
-  let birthdayDates = await getBirthDates();
-  let birthdaysInThisMonth = [];
-  let birthdaysInNextMonth = [];
-  birthdayDates.forEach(birthdayDate => {
-    let hasBirthday = 0;
-    if (Number(birthdayDate.month) - 1 == today.getMonth()) {
-      hasBirthday = 1
-    }
-    if (Number(birthdayDate.month) == today.getMonth()) {
-      hasBirthday = 2
-    }
-    if (hasBirthday == 1) {
-      birthdaysInNextMonth.push(birthdayDate)
-    } else if (hasBirthday == 2) {
-      birthdaysInThisMonth.push(birthdayDate)
-    }
-  });
-  if (birthdaysInThisMonth.length !== 0) {
-    let birthdayGuys = [];
-    birthdaysInThisMonth.forEach(e => {
-      birthdayGuys.push(e.name);
+    const today = new Date();
+    console.log(
+      `Got background fetch call at date: ${new Date(today).toISOString()}`
+    );
+    let birthdayDates = await getBirthdayDates();
+    let birthdaysInThisMonth = [];
+    let birthdaysInNextMonth = [];
+    birthdayDates.forEach((birthdayDate) => {
+      let hasBirthday = "Don't have birthday";
+      if (Number(birthdayDate.month) - 1 == today.getMonth() + 1) {
+        hasBirthday = "Next month";
+      }
+      if (Number(birthdayDate.month) == today.getMonth() + 1) {
+        hasBirthday = "Has birthday";
+      }
+      if (hasBirthday == "Has birthday") {
+        birthdaysInThisMonth.push(birthdayDate);
+      } else if (hasBirthday == "Next month") {
+        birthdaysInNextMonth.push(birthdayDate);
+      }
     });
-  }
-  if (birthdaysInNextMonth.length !== 0) {
-    let birthdayGuys = [];
-    birthdaysInThisMonth.forEach(e => {
-      birthdayGuys.push(e.name);
-    });
-  }
-  console.log(x);
-  Notifications.scheduleNotificationAsync({
-    content: {
-      title: "Birthday reminder",
-      body: "Someone has birthday",
-    },
-    trigger: {
-      seconds: 1,
-    },
-  });
-
+    if (birthdaysInThisMonth.length !== 0) {
+      let birthdayGuys = "";
+      birthdaysInThisMonth.forEach((e) => {
+        birthdayGuys = birthdayGuys + `${e.name} day ${e.day}, `;
+      });
+      Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Birthday reminder",
+          body: `In this month ${birthdayGuys} has birthday!`,
+        },
+        trigger: {
+          seconds: 1,
+        },
+      });
+    }
+    if (birthdaysInNextMonth.length !== 0) {
+      let birthdayGuys = "";
+      birthdaysInNextMonth.forEach((e) => {
+        birthdayGuys = birthdayGuys + `${e.name} day ${e.day}, `;
+      });
+      Notifications.scheduleNotificationAsync({
+        content: {
+          title: "Birthday reminder",
+          body: `In next month ${birthdayGuys} has birthday!`,
+        },
+        trigger: {
+          seconds: 1,
+        },
+      });
+    }
+    registerBackgroundFetchAsync()
   return BackgroundFetch.BackgroundFetchResult.NewData;
 });
 
@@ -78,7 +85,7 @@ async function registerBackgroundFetchAsync() {
   return BackgroundFetch.registerTaskAsync(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, {
     minimumInterval: 5,
     stopOnTerminate: false,
-    startOnBoot: true,
+    startOnBoot: false,
   });
 }
 
@@ -95,12 +102,13 @@ export default function App() {
 
   React.useEffect(() => {
     checkStatusAsync();
+    if (!isRegistered) {
+      toggleFetchTask();
+    }
   }, []);
   React.useEffect(() => {
     console.log(status);
   });
-
-  
 
   const checkStatusAsync = async () => {
     const status = await BackgroundFetch.getStatusAsync();
@@ -119,7 +127,6 @@ export default function App() {
       console.log("Task has stopped");
       await unregisterBackgroundFetchAsync();
     }
-
     checkStatusAsync();
   };
 
@@ -133,21 +140,31 @@ export default function App() {
         <ShowAll />
       ) : isRegistered ? (
         <TouchableOpacity style={styles.button2} onPress={toggleFetchTask}>
-          <Text style={{
-            color: "#85BC84",
-            fontWeight: 800,
-            textAlign: "center",
-            fontSize: 18,
-          }}> Don't remind me</Text>
+          <Text
+            style={{
+              color: "#85BC84",
+              fontWeight: 800,
+              textAlign: "center",
+              fontSize: 18,
+            }}
+          >
+            {" "}
+            Don't remind me
+          </Text>
         </TouchableOpacity>
       ) : (
         <TouchableOpacity style={styles.button2} onPress={toggleFetchTask}>
-          <Text style={{
-            color: "#85BC84",
-            fontWeight: 800,
-            textAlign: "center",
-            fontSize: 18,
-          }}> Remind me</Text>
+          <Text
+            style={{
+              color: "#85BC84",
+              fontWeight: 800,
+              textAlign: "center",
+              fontSize: 18,
+            }}
+          >
+            {" "}
+            Remind me
+          </Text>
         </TouchableOpacity>
       )}
 
