@@ -24,6 +24,20 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontWeight: "900",
     marginBottom: 20,
+    textShadowColor: "black",
+    textShadowOffset: {width: 3, height: 3},
+    textShadowRadius: 5
+  },
+  titleText2: {
+    color: "#74a574",
+    fontSize: 30,
+    marginTop: 20,
+    textAlign: "center",
+    fontWeight: "900",
+    marginBottom: 20,
+    textShadowColor: "black",
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 5
   },
   input: {
     fontSize: 18,

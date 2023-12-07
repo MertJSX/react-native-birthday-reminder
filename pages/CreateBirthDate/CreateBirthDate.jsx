@@ -68,6 +68,7 @@ const CreateBirthDate = () => {
 
   return (
     <View style={styles.container2}>
+      <Text style={styles.titleText2}>New Birthday</Text>
       <TextInput
         style={styles.input}
         value={name}
@@ -116,7 +117,7 @@ const CreateBirthDate = () => {
             fontSize: 18,
           }}
         >
-          Create Birthday
+          Create
         </Text>
       </TouchableOpacity>
       <Text style={{ color: "red", fontWeight: 900 }}>{err}</Text>

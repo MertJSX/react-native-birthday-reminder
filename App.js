@@ -5,6 +5,7 @@ import styles from "./global_styles";
 import CreateBirthDate from "./pages/CreateBirthDate/CreateBirthDate";
 import ShowAll from "./pages/ShowAll/ShowAll";
 import Navbar from "./components/navbar/Navbar";
+import Home from "./pages/Home/Home";
 import * as BackgroundFetch from "expo-background-fetch";
 import * as TaskManager from "expo-task-manager";
 import React from "react";
@@ -166,7 +167,9 @@ export default function App() {
                 fontWeight: 800,
                 textAlign: "center",
                 fontSize: 18,
-              }}>Notification status: Enabled</Text>
+              }}>Notification status: Enabled
+          </Text>
+          <Home />
         </View>
       ) : (
         <View>
@@ -188,7 +191,9 @@ export default function App() {
                 fontWeight: 800,
                 textAlign: "center",
                 fontSize: 18,
-              }}>Notification status: Disabled</Text>
+              }}>Notification status: Disabled
+          </Text>
+          <Home />
         </View>
       )}
 
