@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react-native-birthday-rememberer",
-    "slug": "react-native-birthday-rememberer",
+    "name": "Birthday Reminder",
+    "slug": "birthday-reminder",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +21,24 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.mertjs.birthdayreminder"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f7a6f174-bbc3-423e-b702-59c2abee841b"
+      },
+      "expo": {
+        "backgroundFetch": {
+          "checkInterval": 3600,
+          "minimumInterval": 86400,
+          "forceAlarmManager": true
+        }
+      }
+    },
+    "owner": "mertjs"
   }
 }

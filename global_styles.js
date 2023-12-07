@@ -85,6 +85,13 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
     marginTop: 10,
+    marginBottom: 200,
+    flexView : {
+      paddingBottom: 100,
+    },
+    lastChild: {
+      marginBottom: 50,
+    },
     showAllFlexbox: {
       display: "flex",
       flexDirection: "column",

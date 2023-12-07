@@ -53,8 +53,7 @@ const ShowAll = () => {
     <View style={styles.showAllFlex}>
       <TouchableHighlight 
       style={styles.button2}
-      delayPressOut={1000}
-      onPressOut={saveBirthDate}>
+      onPress={saveBirthDate}>
         <Text
           style={{
             color: "#85BC84",
@@ -67,7 +66,8 @@ const ShowAll = () => {
       <ScrollView>
       {data
         ? data.map((e, key) => (
-            <View key={key} style={styles.showAllFlex.showAllFlexbox}>
+            <View key={key} style={[styles.showAllFlex.showAllFlexbox,
+            key == data.length - 1 ? styles.showAllFlex.lastChild : null]}>
               <Text style={styles.showAllFlex.showAllFlexbox.textStyle}>
                 ID: {key}
               </Text>

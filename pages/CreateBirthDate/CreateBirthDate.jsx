@@ -45,6 +45,9 @@ const CreateBirthDate = () => {
         },
       });
       console.log("Data saved successfully!");
+      setName("");
+      setDay("");
+      setMonth("");
       retrieveData();
     } catch (error) {
       console.error("Data saving error: ", error);
