@@ -159,17 +159,10 @@ export default function App() {
               }}
             >
               {" "}
-              Don't remind me
+              Notifications: Enabled
             </Text>
           </TouchableOpacity>
-          <Text style={{
-                color: "#85BC84",
-                fontWeight: 800,
-                textAlign: "center",
-                fontSize: 18,
-              }}>Notification status: Enabled
-          </Text>
-          <Home />
+            <Home />
         </View>
       ) : (
         <View>
@@ -183,16 +176,9 @@ export default function App() {
               }}
             >
               {" "}
-              Remind me
+              Notifications: Disabled
             </Text>
           </TouchableOpacity>
-          <Text style={{
-                color: "#85BC84",
-                fontWeight: 800,
-                textAlign: "center",
-                fontSize: 18,
-              }}>Notification status: Disabled
-          </Text>
           <Home />
         </View>
       )}

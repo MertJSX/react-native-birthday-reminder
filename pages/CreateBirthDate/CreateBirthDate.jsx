@@ -9,12 +9,11 @@ const CreateBirthDate = () => {
   const [month, setMonth] = useState(0);
   const [day, setDay] = useState(0);
   const [data, setData] = useState([]);
-  const [err, setErr] = useState("");
+  const [res, setRes] = useState("");
 
   useEffect(() => {
-    setErr("");
-    console.log(data);
-  }, [data]);
+    setRes("");
+  }, [name]);
   useEffect(() => {
     retrieveData();
   }, []);
@@ -24,7 +23,7 @@ const CreateBirthDate = () => {
       const foundObject = data.find((item) => item.name === name);
       if (foundObject) {
         console.log(foundObject);
-        setErr("Name already exist. Try another name!");
+        setRes("Name already exist. Try another name!");
         return;
       }
       let newPerson = {
@@ -49,6 +48,7 @@ const CreateBirthDate = () => {
       setDay("");
       setMonth("");
       retrieveData();
+      setRes("Successfully created!")
     } catch (error) {
       console.error("Data saving error: ", error);
     }
@@ -120,7 +120,7 @@ const CreateBirthDate = () => {
           Create
         </Text>
       </TouchableOpacity>
-      <Text style={{ color: "red", fontWeight: 900 }}>{err}</Text>
+      <Text style={{ color: "#85BC84", fontWeight: 900,fontSize: 14 }}>{res}</Text>
     </View>
   );
 };
