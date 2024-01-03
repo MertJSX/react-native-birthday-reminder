@@ -11,6 +11,7 @@ import * as TaskManager from "expo-task-manager";
 import React from "react";
 import * as Notifications from "expo-notifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import {changeNavigationBarColor} from "react-native-navigation-bar-color";
 
 const BIRTHDAY_REMINDER_BIRTHDAY_CONTROL = "background-fetch";
 
@@ -27,6 +28,9 @@ async function getBirthdayDates() {
 }
 
 TaskManager.defineTask(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, async () => {
+  function getDaysInMonth(year, month) {
+    return new Date(year, month, 0).getDate();
+  }
   const today = new Date();
   console.log(
     `Got background fetch call at date: ${new Date(today).toISOString()}`
@@ -43,7 +47,11 @@ TaskManager.defineTask(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, async () => {
       hasBirthday = "Next month";
     }
     if (Number(birthdayDate.month) == today.getMonth() + 1) {
-      hasBirthday = "Has birthday";
+      if (Number(birthdayDate.day) >= today.getDay() + 1) {
+        hasBirthday = "Has birthday";        
+      } else {
+        hasBirthday = "Birthday passed"
+      }
     }
     if (today.getMonth() + 1 == 12) {
       if (Number(birthdayDate.month) == 1) {
@@ -92,7 +100,8 @@ TaskManager.defineTask(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, async () => {
 
 async function registerBackgroundFetchAsync() {
   return BackgroundFetch.registerTaskAsync(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, {
-    minimumInterval: 60 * 60 * 24,
+  //minimumInterval: 60 * 60 * 24,
+    minimumInterval: 10,
     stopOnTerminate: false,
     startOnBoot: true,
   });
@@ -115,9 +124,6 @@ export default function App() {
       toggleFetchTask();
     }
   }, []);
-  React.useEffect(() => {
-    console.log(status);
-  });
 
   const checkStatusAsync = async () => {
     const status = await BackgroundFetch.getStatusAsync();
@@ -183,7 +189,7 @@ export default function App() {
         </View>
       )}
 
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </View>
   );
 }
