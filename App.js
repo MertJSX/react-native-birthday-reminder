@@ -28,13 +28,13 @@ async function getBirthdayDates() {
 }
 
 TaskManager.defineTask(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, async () => {
-  function getDaysInMonth(year, month) {
-    return new Date(year, month, 0).getDate();
-  }
+//  function getDaysInMonth(year, month) {
+//    return new Date(year, month, 0).getDate();
+//  }
   const today = new Date();
-  console.log(
-    `Got background fetch call at date: ${new Date(today).toISOString()}`
-  );
+//  console.log(
+//    `Got background fetch call at date: ${new Date(today).toISOString()}`
+//  );
   let birthdayDates = await getBirthdayDates();
   if (birthdayDates == undefined) {
     return BackgroundFetch.BackgroundFetchResult.NewData;
@@ -47,7 +47,7 @@ TaskManager.defineTask(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, async () => {
       hasBirthday = "Next month";
     }
     if (Number(birthdayDate.month) == today.getMonth() + 1) {
-      if (Number(birthdayDate.day) >= today.getDay() + 1) {
+      if (Number(birthdayDate.day) >= today.getDate()) {
         hasBirthday = "Has birthday";        
       } else {
         hasBirthday = "Birthday passed"
@@ -100,8 +100,8 @@ TaskManager.defineTask(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, async () => {
 
 async function registerBackgroundFetchAsync() {
   return BackgroundFetch.registerTaskAsync(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, {
-  //minimumInterval: 60 * 60 * 24,
-    minimumInterval: 10,
+    minimumInterval: 60 * 60 * 24,
+  //  minimumInterval: 10,
     stopOnTerminate: false,
     startOnBoot: true,
   });
@@ -116,7 +116,7 @@ async function unregisterBackgroundFetchAsync() {
 export default function App() {
   const [page, setPage] = useState("home");
   const [isRegistered, setIsRegistered] = React.useState(false);
-  const [status, setStatus] = React.useState(null);
+  //const [status, setStatus] = React.useState(null);
 
   React.useEffect(() => {
     checkStatusAsync();
@@ -130,16 +130,16 @@ export default function App() {
     const isRegistered = await TaskManager.isTaskRegisteredAsync(
       BIRTHDAY_REMINDER_BIRTHDAY_CONTROL
     );
-    setStatus(status);
+    //setStatus(status);
     setIsRegistered(isRegistered);
   };
 
   const toggleFetchTask = async () => {
     if (!isRegistered) {
-      console.log("Task has started");
+      //console.log("Task has started");
       await registerBackgroundFetchAsync();
     } else {
-      console.log("Task has stopped");
+      //console.log("Task has stopped");
       await unregisterBackgroundFetchAsync();
     }
     checkStatusAsync();

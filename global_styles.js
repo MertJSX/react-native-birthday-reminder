@@ -16,6 +16,15 @@ const styles = StyleSheet.create({
     //backgroundColor: "#324631",
     //width: 300
   },
+  homeContainer: {
+    width: "100%",
+    justifyContent: "center",
+    marginTop: 10,
+    marginBottom: 200,
+    lastChild: {
+      marginBottom: 220,
+    },
+  },
   titleText: {
     color: "#74a574",
     fontSize: 34,

@@ -20,9 +20,9 @@ const ShowAll = () => {
     "December",
   ];
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+ // useEffect(() => {
+ //   console.log(data);
+ // }, [data]);
   useEffect(() => {
     retrieveData();
   }, []);
@@ -31,10 +31,10 @@ const ShowAll = () => {
     try {
       const jsonValue = JSON.stringify(data);
       await AsyncStorage.setItem("birthDayDates", jsonValue);
-      console.log("Data saved successfully!");
+      //console.log("Data saved successfully!");
       retrieveData();
     } catch (error) {
-      console.error("Data saving error: ", error);
+      //console.error("Data saving error: ", error);
     }
   }
   async function retrieveData() {
@@ -43,7 +43,7 @@ const ShowAll = () => {
       if (value !== null) {
         const parsedValue = JSON.parse(value);
         setData(parsedValue);
-        console.log(data);
+        //console.log(data);
       }
     } catch (error) {
       console.error("Error getting data:", error);

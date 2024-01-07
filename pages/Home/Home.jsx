@@ -30,7 +30,7 @@ const Home = () => {
         const today = new Date();
         let birthdayDates = parsedValue;
         if (birthdayDates == undefined) {
-          return
+          return;
         }
         let birthdays = [];
         birthdayDates.forEach((birthdayDate) => {
@@ -39,7 +39,14 @@ const Home = () => {
             hasBirthday = "Next month";
           }
           if (Number(birthdayDate.month) == today.getMonth() + 1) {
-            hasBirthday = "Has birthday";
+            console.log(Number(birthdayDate.day) + " == " + Number(today.getDate()));
+            console.log(birthdayDate);
+            if (Number(birthdayDate.day) >= today.getDate() + 1) {
+              console.log(birthdayDate);
+              hasBirthday = "Has birthday";
+            } else {
+              hasBirthday = "Birthday passed";
+            }
           }
           if (today.getMonth() + 1 == 12) {
             if (Number(birthdayDate.month) == 1) {
@@ -48,7 +55,8 @@ const Home = () => {
           }
           if (hasBirthday == "Has birthday") {
             birthdays.push(birthdayDate);
-          } else if (hasBirthday == "Next month") {
+          }
+          if (hasBirthday == "Next month") {
             birthdays.push(birthdayDate);
           }
         });
@@ -59,35 +67,40 @@ const Home = () => {
     }
   }
   return (
-    <View>
+    <View style={styles.homeContainer}>
       <Text style={styles.titleText3}>
-        People who have birthdays in this month or next month:
+        People who have birthdays in this month and next month:
       </Text>
       <ScrollView>
-      {data
-        ? data.map((e, key) => (
-            <View key={key} style={[styles.showAllFlex.showAllFlexbox,
-            key == data.length - 1 ? styles.showAllFlex.lastChild : null]}>
-              <Text style={styles.showAllFlex.showAllFlexbox.textStyle}>
-                ID: {key}
-              </Text>
-              <Text style={styles.showAllFlex.showAllFlexbox.textStyle}>
-                Name:{" "}
-                <Text style={styles.showAllFlex.showAllFlexbox.textStyle2}>
-                  {e.name}
+        {data
+          ? data.map((e, key) => (
+              <View
+                key={key}
+                style={[
+                  styles.showAllFlex.showAllFlexbox,
+                  key == data.length - 1 ? styles.homeContainer.lastChild : null,
+                ]}
+              >
+                <Text style={styles.showAllFlex.showAllFlexbox.textStyle}>
+                  ID: {key}
                 </Text>
-              </Text>
-              <Text style={styles.showAllFlex.showAllFlexbox.textStyle}>
-                Birthday:{" "}
-                <Text style={styles.showAllFlex.showAllFlexbox.textStyle2}>
-                  {e.day}
-                  {e.day == 1 ? "st" : e.day == 2 ? "nd" : "th"}{" "}
-                  {monthNames[e.month - 1]}
+                <Text style={styles.showAllFlex.showAllFlexbox.textStyle}>
+                  Name:{" "}
+                  <Text style={styles.showAllFlex.showAllFlexbox.textStyle2}>
+                    {e.name}
+                  </Text>
                 </Text>
-              </Text>
-            </View>
-          ))
-        : null}
+                <Text style={styles.showAllFlex.showAllFlexbox.textStyle}>
+                  Birthday:{" "}
+                  <Text style={styles.showAllFlex.showAllFlexbox.textStyle2}>
+                    {e.day}
+                    {e.day == 1 ? "st" : e.day == 2 ? "nd" : "th"}{" "}
+                    {monthNames[e.month - 1]}
+                  </Text>
+                </Text>
+              </View>
+            ))
+          : null}
       </ScrollView>
     </View>
   );
