@@ -4,7 +4,7 @@ import styles from "../../global_styles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Home = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const monthNames = [
     "January",
     "February",
@@ -33,15 +33,18 @@ const Home = () => {
           return;
         }
         let birthdays = [];
-        birthdayDates.forEach((birthdayDate) => {
+        for (let i = 0; i < birthdayDates.length; i++) {
+          let birthdayDate = birthdayDates[i];
+          birthdayDate.id = i;
           let hasBirthday = "Don't have birthday";
           if (Number(birthdayDate.month) - 1 == today.getMonth() + 1) {
             hasBirthday = "Next month";
           }
           if (Number(birthdayDate.month) == today.getMonth() + 1) {
+            console.log(birthdayDate.name);
             console.log(Number(birthdayDate.day) + " == " + Number(today.getDate()));
             console.log(birthdayDate);
-            if (Number(birthdayDate.day) >= today.getDate() + 1) {
+            if (Number(birthdayDate.day) >= today.getDate()) {
               console.log(birthdayDate);
               hasBirthday = "Has birthday";
             } else {
@@ -50,16 +53,20 @@ const Home = () => {
           }
           if (today.getMonth() + 1 == 12) {
             if (Number(birthdayDate.month) == 1) {
+              console.log("Next Month: "+birthdayDate.name);
               hasBirthday = "Next month";
             }
           }
           if (hasBirthday == "Has birthday") {
+            console.log("Has birthday: "+birthdayDate.name);
             birthdays.push(birthdayDate);
           }
           if (hasBirthday == "Next month") {
+            console.log("Next Month: "+birthdayDate.name);
             birthdays.push(birthdayDate);
           }
-        });
+        }
+        console.log(birthdays);
         setData(birthdays);
       }
     } catch (error) {
@@ -69,7 +76,11 @@ const Home = () => {
   return (
     <View style={styles.homeContainer}>
       <Text style={styles.titleText3}>
-        People who have birthdays in this month and next month:
+        {
+          data.length != 0 ? "People who have birthdays in this month and next month:" :
+          "No one has a birthday this or next month."
+        }
+        
       </Text>
       <ScrollView>
         {data
@@ -82,7 +93,7 @@ const Home = () => {
                 ]}
               >
                 <Text style={styles.showAllFlex.showAllFlexbox.textStyle}>
-                  ID: {key}
+                  ID: {e.id}
                 </Text>
                 <Text style={styles.showAllFlex.showAllFlexbox.textStyle}>
                   Name:{" "}

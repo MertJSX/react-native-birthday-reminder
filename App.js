@@ -11,7 +11,6 @@ import * as TaskManager from "expo-task-manager";
 import React from "react";
 import * as Notifications from "expo-notifications";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import {changeNavigationBarColor} from "react-native-navigation-bar-color";
 
 const BIRTHDAY_REMINDER_BIRTHDAY_CONTROL = "background-fetch";
 
@@ -32,6 +31,8 @@ TaskManager.defineTask(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, async () => {
 //    return new Date(year, month, 0).getDate();
 //  }
   const today = new Date();
+
+  console.log("Task started");
 //  console.log(
 //    `Got background fetch call at date: ${new Date(today).toISOString()}`
 //  );
@@ -41,7 +42,7 @@ TaskManager.defineTask(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, async () => {
   }
   let birthdaysInThisMonth = [];
   let birthdaysInNextMonth = [];
-  birthdayDates.forEach((birthdayDate) => {
+  await birthdayDates.forEach((birthdayDate) => {
     let hasBirthday = "Don't have birthday";
     if (Number(birthdayDate.month) - 1 == today.getMonth() + 1) {
       hasBirthday = "Next month";
@@ -75,7 +76,7 @@ TaskManager.defineTask(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, async () => {
         body: `In this month ${birthdayGuys} has birthday!`,
       },
       trigger: {
-        seconds: 1,
+        seconds: 5,
       },
     });
   }
@@ -90,7 +91,7 @@ TaskManager.defineTask(BIRTHDAY_REMINDER_BIRTHDAY_CONTROL, async () => {
         body: `In next month ${birthdayGuys} has birthday!`,
       },
       trigger: {
-        seconds: 1,
+        seconds: 5,
       },
     });
   }
